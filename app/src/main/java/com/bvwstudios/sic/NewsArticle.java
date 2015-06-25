@@ -2,6 +2,8 @@ package com.bvwstudios.sic;
 
 import android.graphics.Bitmap;
 
+import java.util.Date;
+
 /**
  * Created by Vignesh Ravi on 14/6/2015.
  */
@@ -11,11 +13,12 @@ public class NewsArticle {
     private Bitmap mImage;
     private String mUrl;
     private String mCategory;
+    private Date mTime;
     private NewsSource mSource;
 
     public NewsArticle(){}
 
-    public NewsArticle(String mTitle, String mContent, Bitmap mImage, String mUrl, String mCategory, NewsSource mSource) {
+    public NewsArticle(String mTitle, String mContent, Bitmap mImage, String mUrl, String mCategory, Date mTime, NewsSource mSource) {
         super();
         this.mTitle = mTitle;
         this.mContent = mContent;
@@ -23,53 +26,62 @@ public class NewsArticle {
         this.mUrl = mUrl;
         this.mCategory = mCategory;
         this.mSource = mSource;
+        this.mTime = mTime;
     }
 
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
-        this.mTitle = mTitle;
+    public void setTitle(String title) {
+        mTitle = title;
     }
 
-    public String getmContent() {
+    public String getContent() {
         return mContent;
     }
 
-    public void setmContent(String mContent) {
-        this.mContent = mContent;
+    public void setContent(String content) {
+        mContent = content;
     }
 
-    public Bitmap getmImage() {
+    public Date getTime() {
+        return mTime;
+    }
+
+    public void setTime(Date time) {
+        mTime = time;
+    }
+
+    public Bitmap getImage() {
         return mImage;
     }
 
-    public void setmImage(Bitmap mImage) {
-        this.mImage = mImage;
+    public void setImage(Bitmap image) {
+        mImage = image;
     }
 
-    public String getmUrl() {
+    public String getUrl() {
         return mUrl;
     }
 
-    public void setmUrl(String mUrl) {
-        this.mUrl = mUrl;
+    public void setUrl(String url) {
+        mUrl = url;
     }
 
-    public String getmCategory() {
+    public String getCategory() {
         return mCategory;
     }
 
-    public void setmCategory(String mCategory) {
-        this.mCategory = mCategory;
+    public void setCategory(String category) {
+        mCategory = category;
     }
 
-    public NewsSource getmSource() {
+    public NewsSource getSource() {
         return mSource;
     }
 
-    public void setmSource(NewsSource mSource) {
-        this.mSource = mSource;
+    public void setSource(NewsSource source) {
+        mSource = source;
     }
 }

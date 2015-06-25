@@ -19,27 +19,27 @@ public class NewsSource {
         this.mIcon = mIcon;
     }
 
-    public String getmName() {
+    public String getName() {
         return mName;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        mName = name;
     }
 
-    public String getmUrl() {
+    public String getUrl() {
         return mUrl;
     }
 
-    public void setmUrl(String mUrl) {
-        this.mUrl = mUrl;
+    public void setUrl(String url) {
+        mUrl = url;
     }
 
-    public Bitmap getmIcon() {
+    public Bitmap getIcon() {
         return mIcon;
     }
 
-    public void setmIcon(Bitmap mIcon) {
-        this.mIcon = mIcon;
+    public void setIcon(Bitmap icon) {
+        mIcon = icon;
     }
 }
