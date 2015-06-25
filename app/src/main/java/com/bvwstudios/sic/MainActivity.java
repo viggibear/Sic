@@ -7,8 +7,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class MainActivity extends ActionBarActivity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private Toolbar mToolbar;
+    private FrameLayout mContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class MainActivity extends ActionBarActivity
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
 
-
+        mContainer = (FrameLayout) findViewById(R.id.container);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
@@ -41,6 +44,8 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        if (position == 0)
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new ArticleListFragment()).commit();
         Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
     }
 
@@ -89,11 +94,11 @@ public class MainActivity extends ActionBarActivity
                 "In recent years, though, the Wépion strawberry has faced stiff competition from growers within Belgium as well as from producers in the Netherlands, Spain and elsewhere. Yet despite being outgunned in both volume and price, the Wépion growers maintain a strong hold on their small share of the regional strawberry market.\n" +
                 "\n" +
                 "The growers rally around their brand, La Criée de Wépion, and remain a presence in supermarkets in Brussels and area outdoor markets during the late spring and much of the summer. The growers’ big selling point is that with a limited distribution radius they can wait to pick berries at peak ripeness, then quickly ship the fruit to stores in refrigerated trucks. Stocks of Wépion berries often sell out.", BitmapFactory.decodeResource(MainActivity.this.getResources(),
-                R.drawable.belgium_pic), "google.com", "Breaking", new NewsSource("NYTimes", "nytimes.com", BitmapFactory.decodeResource(MainActivity.this.getResources(),
+                R.drawable.belgium_pic), "google.com", "Breaking", new Date(), new NewsSource("NYTimes", "nytimes.com", BitmapFactory.decodeResource(MainActivity.this.getResources(),
                 R.drawable.nytimes)));
 
         NewsArticle europe1 = new NewsArticle("What would the Kaiser say?", "FOR five centuries Berlin grew out from its political centre, the castle of the Hohenzollerns, as the dynasty rose from imperial electors of Brandenburg to kings of Prussia and finally emperors of Germany. The expanding edifice reflected this. Andreas Schlüter, a Baroque star, made it grand in the 18th century. Karl-Friedrich Schinkel, a 19th-century titan, surrounded it with neoclassical temples.", BitmapFactory.decodeResource(MainActivity.this.getResources(),
-                R.drawable.europe_pic), "google.com", "Politics", new NewsSource("Economist", "economist.com", BitmapFactory.decodeResource(MainActivity.this.getResources(),
+                R.drawable.europe_pic), "google.com", "Politics", new Date(), new NewsSource("Economist", "economist.com", BitmapFactory.decodeResource(MainActivity.this.getResources(),
                 R.drawable.economist)));
 
         newsArticleList.add(top1);
@@ -102,7 +107,5 @@ public class MainActivity extends ActionBarActivity
         return newsArticleList;
 
     }
-
-
 
 }
