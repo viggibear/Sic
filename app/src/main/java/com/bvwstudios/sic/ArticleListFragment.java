@@ -20,6 +20,13 @@ public class ArticleListFragment extends Fragment {
 
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.article_list);
         recyclerView.setHasFixedSize(true);
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
