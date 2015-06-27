@@ -9,7 +9,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Classifier4J-0.6" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/goose-2.1.22" />
+            <option value="$PROJECT_DIR$/org.json-20120521" />
+            <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
       </GradleProjectSettings>
