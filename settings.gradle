@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':goose-2.1.22', ':org.json-20120521', ':volley', ':Classifier4J-0.6'
