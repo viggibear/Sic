@@ -61,4 +61,22 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return new ViewHolder(v);
     }
 
+    public void addArticles(List<NewsArticle> articles) {
+        mArticles.addAll(articles);
+        notifyDataSetChanged();
+    }
+
+    public void addArticle(NewsArticle article) {
+        mArticles.add(article);
+        notifyItemInserted(mArticles.size() - 1);
+    }
+
+    public void setArticle(int position, NewsArticle article) {
+        mArticles.set(position, article);
+        notifyItemChanged(position);
+    }
+
+    public NewsArticle getArticle(int position) {
+        return mArticles.get(position);
+    }
 }
