@@ -3,23 +3,18 @@
     <string name="drawer_open">Menu opened</string>
     <string name="drawer_close">Menu closed</string>
     <string name="action_settings">Settings</string>
-<<<<<<< HEAD
 
     <string name="pref_article_text">Article Settings</string>
     <string name="pref_article_text_summary">Change the Length of your Summary</string>
     <string name="pref_article_text_summary_title">Summary Length</string>
     <string name="pref_article_text_textsize">Change Text Size</string>
     <string name="pref_article_text_textsize_title">Text Size</string>
-=======
-<<<<<<< HEAD
+
     <string name="button_sign_up">Sign Up</string>
     <string name="log_in_text">Already have an account?</string>
     <string name="button_log_in">Log In</string>
     <string name="username_hint">username</string>
     <string name="password_hint">password</string>
     <string name="repeat_password_hint">repeat password</string>
-=======
-    <string name="pref_article_text">Paragraph Size</string>
->>>>>>> viggibear/master
->>>>>>> origin/master
+
 </resources>

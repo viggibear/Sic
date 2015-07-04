@@ -76,4 +76,3 @@ public class LogInDialog extends DialogFragment {
         return dialog;
     }
 }
-
