@@ -1,5 +1,6 @@
 package com.bvwstudios.sic;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.parse.ParseUser;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -29,6 +32,13 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (ParseUser.getCurrentUser() == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
 
@@ -88,7 +98,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public List<NewsArticle> pullArticles(){
-        List <NewsArticle> newsArticleList = new LinkedList<>();
+        List <NewsArticle> newsArticleList = new LinkedList<NewsArticle>();
         NewsArticle top1 = new NewsArticle("In Belgium’s Strawberry Fields, Perfection’s in the Picking", "For many Belgians, Wépion has long been synonymous with strawberries. Carefully picked berries from this village, which has been in the strawberry growing business since the mid-17th century, are renowned for their fully ripe flavor. In Brussels, 50 miles to the northwest, Wépion berries fetch a premium price, roughly twice what the competition is going for.\n" +
                 "\n" +
                 "In recent years, though, the Wépion strawberry has faced stiff competition from growers within Belgium as well as from producers in the Netherlands, Spain and elsewhere. Yet despite being outgunned in both volume and price, the Wépion growers maintain a strong hold on their small share of the regional strawberry market.\n" +
