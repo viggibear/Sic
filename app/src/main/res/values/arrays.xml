@@ -5,4 +5,9 @@
         <item name="10">Medium Summary</item>
         <item name="15">Low Summary</item>
     </string-array>
+    <string-array name="textSize">
+        <item name="20">Small</item>
+        <item name="24">Medium (Default)</item>
+        <item name="28">Large</item>
+    </string-array>
 </resources>

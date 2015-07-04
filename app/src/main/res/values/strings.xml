@@ -3,5 +3,10 @@
     <string name="drawer_open">Menu opened</string>
     <string name="drawer_close">Menu closed</string>
     <string name="action_settings">Settings</string>
-    <string name="pref_article_text">Paragraph Size</string>
+
+    <string name="pref_article_text">Article Settings</string>
+    <string name="pref_article_text_summary">Change the Length of your Summary</string>
+    <string name="pref_article_text_summary_title">Summary Length</string>
+    <string name="pref_article_text_textsize">Change Text Size</string>
+    <string name="pref_article_text_textsize_title">Text Size</string>
 </resources>

@@ -3,6 +3,15 @@
     <PreferenceCategory android:title="@string/pref_article_text">
         <ListPreference
             android:key="articleSize"
-            android:entries="@array/articleSize"/>
+            android:entries="@array/articleSize"
+            android:summary="@string/pref_article_text_summary"
+            android:defaultValue="7"
+            android:title="@string/pref_article_text_summary_title"/>
+        <ListPreference
+            android:key="textSize"
+            android:entries="@array/textSize"
+            android:summary="@string/pref_article_text_textsize"
+            android:defaultValue="24"
+            android:title="@string/pref_article_text_textsize_title"/>
     </PreferenceCategory>
 </PreferenceScreen>
