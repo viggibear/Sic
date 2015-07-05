@@ -48,7 +48,7 @@ class NewsQuery {
                         try {
                             Log.d("meow", "New York Times");
                             JSONObject responseObject = new JSONObject(response);
-
+                            Log.d("meow",response);
                             JSONArray results = responseObject.getJSONArray("results");
                             int resultsLength = responseObject.getInt("num_results");
                             List<NewsObject> newsList = new ArrayList<>();
@@ -59,13 +59,17 @@ class NewsQuery {
                                         results.getJSONObject(i).getString("url"),
                                         results.getJSONObject(i).getString("byline"),
                                         null,
-                                        (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")).parse(results.getJSONObject(i).getString("publishedDate"))
+                                        (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'-5:00'")).parse(results.getJSONObject(i).getString("updated_date"))
                                 ));
                             }
                             callback.returnNews(newsList);
                         }
-                        catch (JSONException e) {}
-                        catch (ParseException e) {}
+                        catch (JSONException e) {
+                            Log.d("meow", e.getMessage());
+                        }
+                        catch (ParseException e) {
+                            Log.d("meow", e.getMessage());
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -89,10 +93,11 @@ class NewsQuery {
                         Log.d("meow", "The Guardian returns request.");
                         Log.d("meow", response);
                         try {
+                            Log.d("meow", response);
                             JSONObject responseObject = new JSONObject(response);
 
-                            JSONArray results = responseObject.getJSONArray("results");
-                            int resultsCount = responseObject.getInt("total");
+                            JSONArray results = responseObject.getJSONObject("response").getJSONArray("results");
+                            int resultsCount = responseObject.getJSONObject("response").getInt("pageSize");
                             Log.d("meow", String.valueOf(resultsCount));
                             List<NewsObject> newsList = new ArrayList<>();
                             for (int i = 0; i < resultsCount; i++) {
@@ -109,10 +114,10 @@ class NewsQuery {
                             callback.returnNews(newsList);
                         }
                         catch (ParseException e) {
-                            Log.d("meow", "ParseException");
+                            Log.d("meow", e.getMessage());
                         }
                         catch (JSONException e) {
-
+                            Log.d("meow", e.getMessage());
                         }
                     }
                 },
@@ -146,14 +151,14 @@ class NewsQuery {
                                     results.getJSONObject(i).getJSONArray("guid").getJSONObject(0).getString("value"),
                                     null,
                                     null,
-                                    (new SimpleDateFormat("EEE, d MMM yyyy kk:mm:ss'GMT'")).parse(results.getJSONObject(i).getString("pubDate"))
+                                    (new SimpleDateFormat("EEE, d MMM yyyy kk:mm:ss 'GMT'")).parse(results.getJSONObject(i).getString("pubDate"))
                                 ));
                             }
 
                             callback.returnNews(newsList);
                         }
                         catch (ParseException e) {
-                            Log.d("meow", "ParseException");
+                            Log.d("meow", e.getMessage());
                         }
                         catch (JSONException e) {
                             Log.d("meow", "JSONException");
@@ -205,7 +210,7 @@ class NewsQuery {
                                     results.getJSONObject(i).getString("web_url"),
                                     null,
                                     null,
-                                    (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(results.getJSONObject(i).getString("pub_date"))
+                                    (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'-5:00'")).parse(results.getJSONObject(i).getString("pub_date"))
                                 ));
                             }
                             callback.returnNews(newsList);
@@ -243,8 +248,8 @@ class NewsQuery {
                         try {
                             JSONObject responseObject = new JSONObject(response);
 
-                            int resultsCount = responseObject.getInt("total");
-                            JSONArray results = responseObject.getJSONArray("results");
+                            JSONArray results = responseObject.getJSONObject("response").getJSONArray("results");
+                            int resultsCount = responseObject.getJSONObject("response").getInt("pageSize");
                             List<NewsObject> newsList = new ArrayList<>();
                             for (int i = 0; i < resultsCount; i++) {
                                 newsList.add(new NewsObject(
@@ -303,7 +308,7 @@ class NewsQuery {
                                         results.getJSONObject(i).getJSONArray("guid").getJSONObject(0).getString("value"),
                                         null,
                                         null,
-                                        (new SimpleDateFormat("EEE, d MMM yyyy kk:mm:ss'GMT'")).parse(results.getJSONObject(i).getString("pubDate"))
+                                        (new SimpleDateFormat("EEE, d MMM yyyy kk:mm:ss 'GMT'")).parse(results.getJSONObject(i).getString("pubDate"))
                                     ));
                                 }
 

@@ -101,7 +101,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void pullBreakingNewsArticles(final ArticleAdapter adapter) {
-        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN, Subcategories.ECONOMY | Subcategories.SCIENCE));
+        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN | NewsSources.USA_TODAY, Subcategories.ECONOMY | Subcategories.SCIENCE));
         articleQuery.findBreakingNews(new NewsQueryCallback() {
             @Override
             public void returnNews(List<NewsObject> newsObjects) {
@@ -112,7 +112,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void pullArticles(final ArticleAdapter adapter) {
-        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN, Subcategories.ECONOMY | Subcategories.SCIENCE));
+        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN | NewsSources.USA_TODAY, Subcategories.ECONOMY | Subcategories.SCIENCE));
         articleQuery.getSpecificCategory(new NewsQueryCallback() {
             @Override
             public void returnNews(List<NewsObject> newsObjects) {
