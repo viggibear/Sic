@@ -1,6 +1,7 @@
 package com.bvwstudios.sic;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,6 +46,7 @@ class NewsQuery {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            Log.d("meow", "New York Times");
                             JSONObject responseObject = new JSONObject(response);
 
                             JSONArray results = responseObject.getJSONArray("results");
@@ -57,7 +59,7 @@ class NewsQuery {
                                         results.getJSONObject(i).getString("url"),
                                         results.getJSONObject(i).getString("byline"),
                                         null,
-                                        (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")).parse(results.getJSONObject(i).getString("publishedDate"))
+                                        (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")).parse(results.getJSONObject(i).getString("publishedDate"))
                                 ));
                             }
                             callback.returnNews(newsList);
@@ -84,11 +86,14 @@ class NewsQuery {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.d("meow", "The Guardian returns request.");
+                        Log.d("meow", response);
                         try {
                             JSONObject responseObject = new JSONObject(response);
 
                             JSONArray results = responseObject.getJSONArray("results");
                             int resultsCount = responseObject.getInt("total");
+                            Log.d("meow", String.valueOf(resultsCount));
                             List<NewsObject> newsList = new ArrayList<>();
                             for (int i = 0; i < resultsCount; i++) {
                                 newsList.add(new NewsObject(
@@ -103,8 +108,12 @@ class NewsQuery {
 
                             callback.returnNews(newsList);
                         }
-                        catch (ParseException e) {}
-                        catch (JSONException e) {}
+                        catch (ParseException e) {
+                            Log.d("meow", "ParseException");
+                        }
+                        catch (JSONException e) {
+
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -143,8 +152,12 @@ class NewsQuery {
 
                             callback.returnNews(newsList);
                         }
-                        catch (ParseException e) {}
-                        catch (JSONException e) {}
+                        catch (ParseException e) {
+                            Log.d("meow", "ParseException");
+                        }
+                        catch (JSONException e) {
+                            Log.d("meow", "JSONException");
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -257,6 +270,7 @@ class NewsQuery {
                     }
                 }
             );
+            queue.add(stringRequest);
         }
         
         if ((mOptions.mNewsOption & NewsSources.USA_TODAY) > 0) {

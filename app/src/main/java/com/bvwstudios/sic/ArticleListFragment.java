@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by bradley on 25/6/15.
  */
 public class ArticleListFragment extends Fragment {
-
+    ArticleAdapter mAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final MainActivity activity = (MainActivity) getActivity();
@@ -22,7 +25,8 @@ public class ArticleListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+                    @Override
+                    public void onItemClick(View view, int position) {
                         // do whatever
                     }
                 })
@@ -32,8 +36,11 @@ public class ArticleListFragment extends Fragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        final ArticleAdapter articleAdapter = new ArticleAdapter(activity.pullArticles());
-        recyclerView.setAdapter(articleAdapter);
+        // assume its for breaking news
+
+        mAdapter = new ArticleAdapter(new ArrayList<NewsObject>());
+        recyclerView.setAdapter(mAdapter);
+        activity.pullBreakingNewsArticles(mAdapter);
 
         return view;
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -99,25 +100,25 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public List<NewsArticle> pullArticles(){
-        List <NewsArticle> newsArticleList = new LinkedList<>();
-        NewsArticle top1 = new NewsArticle("In Belgium’s Strawberry Fields, Perfection’s in the Picking", "For many Belgians, Wépion has long been synonymous with strawberries. Carefully picked berries from this village, which has been in the strawberry growing business since the mid-17th century, are renowned for their fully ripe flavor. In Brussels, 50 miles to the northwest, Wépion berries fetch a premium price, roughly twice what the competition is going for.\n" +
-                "\n" +
-                "In recent years, though, the Wépion strawberry has faced stiff competition from growers within Belgium as well as from producers in the Netherlands, Spain and elsewhere. Yet despite being outgunned in both volume and price, the Wépion growers maintain a strong hold on their small share of the regional strawberry market.\n" +
-                "\n" +
-                "The growers rally around their brand, La Criée de Wépion, and remain a presence in supermarkets in Brussels and area outdoor markets during the late spring and much of the summer. The growers’ big selling point is that with a limited distribution radius they can wait to pick berries at peak ripeness, then quickly ship the fruit to stores in refrigerated trucks. Stocks of Wépion berries often sell out.", BitmapFactory.decodeResource(MainActivity.this.getResources(),
-                R.drawable.belgium_pic), "google.com", "Breaking", new Date(), new NewsSource("NYTimes", "nytimes.com", BitmapFactory.decodeResource(MainActivity.this.getResources(),
-                R.drawable.nytimes)));
+    public void pullBreakingNewsArticles(final ArticleAdapter adapter) {
+        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN, Subcategories.ECONOMY | Subcategories.SCIENCE));
+        articleQuery.findBreakingNews(new NewsQueryCallback() {
+            @Override
+            public void returnNews(List<NewsObject> newsObjects) {
+                //Log.d("meow", String.valueOf(newsObjects.size()));
+                adapter.addArticles(newsObjects);
+            }
+        }, MainActivity.this);
+    }
 
-        NewsArticle europe1 = new NewsArticle("What would the Kaiser say?", "FOR five centuries Berlin grew out from its political centre, the castle of the Hohenzollerns, as the dynasty rose from imperial electors of Brandenburg to kings of Prussia and finally emperors of Germany. The expanding edifice reflected this. Andreas Schlüter, a Baroque star, made it grand in the 18th century. Karl-Friedrich Schinkel, a 19th-century titan, surrounded it with neoclassical temples.", BitmapFactory.decodeResource(MainActivity.this.getResources(),
-                R.drawable.europe_pic), "google.com", "Politics", new Date(), new NewsSource("Economist", "economist.com", BitmapFactory.decodeResource(MainActivity.this.getResources(),
-                R.drawable.economist)));
-
-        newsArticleList.add(top1);
-        newsArticleList.add(europe1);
-
-        return newsArticleList;
-
+    public void pullArticles(final ArticleAdapter adapter) {
+        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN, Subcategories.ECONOMY | Subcategories.SCIENCE));
+        articleQuery.getSpecificCategory(new NewsQueryCallback() {
+            @Override
+            public void returnNews(List<NewsObject> newsObjects) {
+                adapter.addArticles(newsObjects);
+            }
+        }, MainActivity.this);
     }
 
 }

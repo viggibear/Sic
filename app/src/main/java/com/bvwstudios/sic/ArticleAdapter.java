@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
-    private List<NewsArticle> mArticles;
+    private List<NewsObject> mArticles;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         protected TextView tvTitle;
@@ -34,7 +34,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         }
     }
 
-    public ArticleAdapter(List<NewsArticle> articles) {
+    public String getName(int option) {
+        if (option == NewsSources.NEW_YORK_TIMES) return "The New York Times";
+        if (option == NewsSources.THE_GUARDIAN) return "The Guardian";
+        if (option == NewsSources.USA_TODAY) return "USA Today";
+        return "";
+    }
+
+    public ArticleAdapter(List<NewsObject> articles) {
         mArticles = articles;
     }
 
@@ -45,12 +52,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        NewsArticle article = mArticles.get(position);
-        viewHolder.tvTitle.setText(article.getTitle());
-        Date date = article.getTime();
+        NewsObject article = mArticles.get(position);
+        viewHolder.tvTitle.setText(article.mTitle);
+        Date date = article.mPublishedDate;
         SimpleDateFormat df = new SimpleDateFormat("dd MMM");
         viewHolder.tvTime.setText(df.format(date));
-        viewHolder.tvSource.setText(article.getSource().getName());
+        viewHolder.tvSource.setText(getName(article.mSource));
         //let's leave image alone first
     }
 
@@ -61,22 +68,22 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return new ViewHolder(v);
     }
 
-    public void addArticles(List<NewsArticle> articles) {
+    public void addArticles(List<NewsObject> articles) {
         mArticles.addAll(articles);
         notifyDataSetChanged();
     }
 
-    public void addArticle(NewsArticle article) {
+    public void addArticle(NewsObject article) {
         mArticles.add(article);
         notifyItemInserted(mArticles.size() - 1);
     }
 
-    public void setArticle(int position, NewsArticle article) {
+    public void setArticle(int position, NewsObject article) {
         mArticles.set(position, article);
         notifyItemChanged(position);
     }
 
-    public NewsArticle getArticle(int position) {
+    public NewsObject getArticle(int position) {
         return mArticles.get(position);
     }
 }
