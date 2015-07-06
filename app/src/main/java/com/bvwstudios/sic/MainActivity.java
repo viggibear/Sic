@@ -100,7 +100,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public List<NewsArticle> pullArticles(){
-        List <NewsArticle> newsArticleList = new LinkedList<NewsArticle>();
+        List <NewsArticle> newsArticleList = new LinkedList<>();
         NewsArticle top1 = new NewsArticle("In Belgium’s Strawberry Fields, Perfection’s in the Picking", "For many Belgians, Wépion has long been synonymous with strawberries. Carefully picked berries from this village, which has been in the strawberry growing business since the mid-17th century, are renowned for their fully ripe flavor. In Brussels, 50 miles to the northwest, Wépion berries fetch a premium price, roughly twice what the competition is going for.\n" +
                 "\n" +
                 "In recent years, though, the Wépion strawberry has faced stiff competition from growers within Belgium as well as from producers in the Netherlands, Spain and elsewhere. Yet despite being outgunned in both volume and price, the Wépion growers maintain a strong hold on their small share of the regional strawberry market.\n" +
