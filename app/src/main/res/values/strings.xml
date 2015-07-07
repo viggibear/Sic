@@ -16,5 +16,8 @@
     <string name="username_hint">username</string>
     <string name="password_hint">password</string>
     <string name="repeat_password_hint">repeat password</string>
+    <string name="title_activity_article">ArticleActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

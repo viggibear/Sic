@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="articleSize">
-        <item name="7">Default Summary Size</item>
-        <item name="10">Medium Summary</item>
-        <item name="15">Low Summary</item>
+        <item>Default Size</item>
+        <item>Medium Summary</item>
+        <item>Low Summary</item>
     </string-array>
+    <string-array name="articleSize_values">
+        <item>7</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+
     <string-array name="textSize">
-        <item name="20">Small</item>
-        <item name="24">Medium (Default)</item>
-        <item name="28">Large</item>
+        <item>Small</item>
+        <item>Medium (Default)</item>
+        <item>Large</item>
+    </string-array>
+    <string-array name="textSize_values">
+        <item>20</item>
+        <item>24</item>
+        <item>28</item>
     </string-array>
 </resources>
