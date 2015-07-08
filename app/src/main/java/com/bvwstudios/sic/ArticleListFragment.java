@@ -1,5 +1,6 @@
 package com.bvwstudios.sic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +27,9 @@ public class ArticleListFragment extends Fragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
+                        Intent intent = new Intent(activity, ArticleActivity.class);
+                        intent.putExtra("newsObject", mAdapter.getArticle(position));
+                        startActivity(intent);
                     }
                 })
         );
@@ -35,11 +38,16 @@ public class ArticleListFragment extends Fragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-        // assume its for breaking news
 
         mAdapter = new ArticleAdapter(new ArrayList<NewsObject>());
         recyclerView.setAdapter(mAdapter);
-        activity.pullBreakingNewsArticles(mAdapter);
+
+        if (activity.selectedPosition != 0) {
+            activity.pullBreakingNewsArticles(mAdapter);
+        } else {
+            activity.pullArticles(mAdapter, (1 << (activity.selectedPosition - 1)));
+        }
+
 
         return view;
     }

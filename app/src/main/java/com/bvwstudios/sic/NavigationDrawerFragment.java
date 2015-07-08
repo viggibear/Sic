@@ -110,9 +110,13 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
         Drawable transparentDrawable = new ColorDrawable(Color.TRANSPARENT);
-        items.add(new NavigationItem("All", transparentDrawable));
         items.add(new NavigationItem("Breaking", transparentDrawable));
         items.add(new NavigationItem("Politics", transparentDrawable));
+        items.add(new NavigationItem("Sports", transparentDrawable));
+        items.add(new NavigationItem("Economy", transparentDrawable));
+        items.add(new NavigationItem("Science", transparentDrawable));
+        items.add(new NavigationItem("Entertainment", transparentDrawable));
+        items.add(new NavigationItem("Health", transparentDrawable));
         return items;
     }
 

@@ -5,4 +5,30 @@
     <include android:id="@+id/toolbar_actionbar" layout="@layout/toolbar_default"
         android:layout_width="match_parent" android:layout_height="wrap_content" />
 
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/image"
+        android:layout_below="@+id/toolbar_actionbar"></ImageView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image"
+        android:textSize="24dp"
+        android:textColor="#333"
+        android:textStyle="bold"
+        android:id="@+id/title"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/content"
+        android:layout_below="@+id/title"
+        android:layout_margin="16dp"
+        android:layout_marginTop="0dp"
+        android:lineSpacingMultiplier="1.5"/>
+
+
 </RelativeLayout>

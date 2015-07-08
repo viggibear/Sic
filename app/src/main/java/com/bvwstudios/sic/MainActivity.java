@@ -1,21 +1,16 @@
 package com.bvwstudios.sic;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.parse.ParseUser;
 
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -28,6 +23,9 @@ public class MainActivity extends ActionBarActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private Toolbar mToolbar;
     private FrameLayout mContainer;
+    public int selectedPosition = 0;
+
+    public NewsObject currentNews;
     private static final int RESULT_SETTINGS = 1;
 
     @Override
@@ -51,14 +49,15 @@ public class MainActivity extends ActionBarActivity
 
         // Set up the drawer.
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new ArticleListFragment()).commit();
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        if (position == 0)
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new ArticleListFragment()).commit();
-        Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
+        selectedPosition = position;
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new ArticleListFragment()).commit();
     }
 
 
@@ -111,8 +110,8 @@ public class MainActivity extends ActionBarActivity
         }, MainActivity.this);
     }
 
-    public void pullArticles(final ArticleAdapter adapter) {
-        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN | NewsSources.USA_TODAY, Subcategories.ECONOMY | Subcategories.SCIENCE));
+    public void pullArticles(final ArticleAdapter adapter, int categories) {
+        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN | NewsSources.USA_TODAY, categories));
         articleQuery.getSpecificCategory(new NewsQueryCallback() {
             @Override
             public void returnNews(List<NewsObject> newsObjects) {
