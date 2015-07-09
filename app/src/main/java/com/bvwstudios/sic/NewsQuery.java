@@ -179,19 +179,20 @@ class NewsQuery {
         
     public void getSpecificCategory(final NewsQueryCallback callback, Context context) {
         if (mOptions == null) return;
+        Log.d("meow", String.valueOf(mOptions.mSubcategoryOption));
         
         RequestQueue queue = Volley.newRequestQueue(context);
         if ((mOptions.mNewsOption & NewsSources.NEW_YORK_TIMES) > 0) {
             
             String NY_TIMES_QUERY_STRING = "(";
-            if ((mOptions.mSubcategoryOption & Subcategories.SPORTS) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Sports\" ";
-            if ((mOptions.mSubcategoryOption & Subcategories.POLITICS) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Politics\" ";
-            if ((mOptions.mSubcategoryOption & Subcategories.ENTERTAINMENT) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Entertainment\" ";
-            if ((mOptions.mSubcategoryOption & Subcategories.ECONOMY) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Economy\" ";
-            if ((mOptions.mSubcategoryOption & Subcategories.HEALTH) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Health\" ";
-            if ((mOptions.mSubcategoryOption & Subcategories.SCIENCE) > 0)NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Science\" ";
+            if ((mOptions.mSubcategoryOption & Subcategories.SPORTS) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Sports\"%20";
+            if ((mOptions.mSubcategoryOption & Subcategories.POLITICS) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Politics\"%20";
+            if ((mOptions.mSubcategoryOption & Subcategories.ENTERTAINMENT) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Entertainment\"%20";
+            if ((mOptions.mSubcategoryOption & Subcategories.ECONOMY) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Economy\"%20";
+            if ((mOptions.mSubcategoryOption & Subcategories.HEALTH) > 0) NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Health\"%20";
+            if ((mOptions.mSubcategoryOption & Subcategories.SCIENCE) > 0)NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + "\"Science\"%20";
             NY_TIMES_QUERY_STRING = NY_TIMES_QUERY_STRING + ")";
-            
+            Log.d("meow", NY_TIMES_QUERY_STRING);
             StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
                 "http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + NEW_YORK_TIMES_SEARCH_APIKEY + "&sort=newest&fq=" + NY_TIMES_QUERY_STRING,
@@ -210,13 +211,17 @@ class NewsQuery {
                                     results.getJSONObject(i).getString("web_url"),
                                     null,
                                     null,
-                                    (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'-5:00'")).parse(results.getJSONObject(i).getString("pub_date"))
+                                    (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")).parse(results.getJSONObject(i).getString("pub_date"))
                                 ));
                             }
                             callback.returnNews(newsList);
                         }
-                        catch (ParseException e) {}
-                        catch (JSONException e) {}
+                        catch (ParseException e) {
+                            Log.d("meow", e.getMessage());
+                        }
+                        catch (JSONException e) {
+                            Log.d("meow1", e.getMessage());
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -246,12 +251,14 @@ class NewsQuery {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            Log.d("meow", "The Guardian returns");
                             JSONObject responseObject = new JSONObject(response);
 
                             JSONArray results = responseObject.getJSONObject("response").getJSONArray("results");
                             int resultsCount = responseObject.getJSONObject("response").getInt("pageSize");
+                            int totalCount = responseObject.getJSONObject("response").getInt("total");
                             List<NewsObject> newsList = new ArrayList<>();
-                            for (int i = 0; i < resultsCount; i++) {
+                            for (int i = 0; i < Math.min(totalCount, resultsCount); i++) {
                                 newsList.add(new NewsObject(
                                     NewsSources.THE_GUARDIAN,
                                     results.getJSONObject(i).getString("webTitle"),
@@ -264,8 +271,12 @@ class NewsQuery {
 
                             callback.returnNews(newsList);
                         }
-                        catch (ParseException e) {}
-                        catch (JSONException e) {}
+                        catch (ParseException e) {
+                            Log.d("meow", "Guardian parse exception" + e.getMessage());
+                        }
+                        catch (JSONException e) {
+                            Log.d("meow", "Guardian JSON exception" + e.getMessage());
+                        }
                     }
                 },
                 new Response.ErrorListener() {

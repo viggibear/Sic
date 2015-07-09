@@ -2,6 +2,7 @@ package com.bvwstudios.sic;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,10 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
 
         if (ParseUser.getCurrentUser() == null) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -100,7 +105,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void pullBreakingNewsArticles(final ArticleAdapter adapter) {
-        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN | NewsSources.USA_TODAY, Subcategories.ECONOMY | Subcategories.SCIENCE));
+        NewsQuery articleQuery = new NewsQuery(new Options(NewsSources.NEW_YORK_TIMES | NewsSources.THE_GUARDIAN | NewsSources.USA_TODAY, 63));
         articleQuery.findBreakingNews(new NewsQueryCallback() {
             @Override
             public void returnNews(List<NewsObject> newsObjects) {

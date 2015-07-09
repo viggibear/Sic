@@ -8,14 +8,14 @@ class NewsSources {
     public static final int THE_GUARDIAN = 1 << 1;
     public static final int USA_TODAY = 1 << 2;
     
-    private List<String> mNames = new ArrayList<String>();
-    private List<String> mUrls = new ArrayList<String>();
+    private static List<String> mNames = new ArrayList<String>();
+    private static List<String> mUrls = new ArrayList<String>();
     
-    public String getName(int id) {
-        for (int i = 0; i < mNames.size(); i++) {
-            if (id == (1 << i)) return mNames.get(i);
-        }
-        return null;
+    static public CharSequence getName(int id) {
+        if (id == 1) return "New York Times";
+        if (id == 2) return "The Guardian";
+        if (id == 4) return "USA Today";
+        return String.valueOf(id);
     }
     
     public String getUrl(int id) {

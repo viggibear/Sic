@@ -29,6 +29,7 @@ public class ArticleActivity extends AppCompatActivity {
 
         mTitle.setText(mNewsObject.mTitle);
 
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String preference = sharedPref.getString(SettingsActivity.KEY_ARTICLE_SIZE, "10");
         int sentences = Integer.parseInt(preference);
@@ -41,6 +42,7 @@ public class ArticleActivity extends AppCompatActivity {
         });
 
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        mToolbar.setTitle(NewsSources.getName(mNewsObject.mSource));
         setSupportActionBar(mToolbar);
     }
 

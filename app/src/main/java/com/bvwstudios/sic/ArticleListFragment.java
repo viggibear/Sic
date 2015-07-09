@@ -39,10 +39,10 @@ public class ArticleListFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
 
 
-        mAdapter = new ArticleAdapter(new ArrayList<NewsObject>());
+        mAdapter = new ArticleAdapter(new ArrayList<NewsObject>(), getActivity());
         recyclerView.setAdapter(mAdapter);
 
-        if (activity.selectedPosition != 0) {
+        if (activity.selectedPosition == 0) {
             activity.pullBreakingNewsArticles(mAdapter);
         } else {
             activity.pullArticles(mAdapter, (1 << (activity.selectedPosition - 1)));

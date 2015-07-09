@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Classifier4J-0.6/Classifier4J-0.6.iml" filepath="$PROJECT_DIR$/Classifier4J-0.6/Classifier4J-0.6.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Sic.iml" filepath="$PROJECT_DIR$/Sic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sic-New.iml" filepath="$PROJECT_DIR$/Sic-New.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/goose-2.1.22/goose-2.1.22.iml" filepath="$PROJECT_DIR$/goose-2.1.22/goose-2.1.22.iml" />
       <module fileurl="file://$PROJECT_DIR$/org.json-20120521/org.json-20120521.iml" filepath="$PROJECT_DIR$/org.json-20120521/org.json-20120521.iml" />

@@ -92,16 +92,51 @@ class NewsObject implements Parcelable {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            Log.d("potatopie", response);
                             JSONObject responseObject = new JSONObject(response);
                             String content = responseObject.getString("sm_api_content");
-                            Log.d(null, content);
+                            Log.d("potatopie", content);
                             callback.returnSummary(content);
-                        } catch (JSONException e) {}
+                        } catch (JSONException e) {
+                            Log.d("potatopie", e.getMessage());
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("potatopie", error.getMessage());
+                        return;
+                    }
+                }
+        );
+        queue.add(stringRequest);
+    }
+
+    public void getImage(Context context, final NewsImageCallback callback) {
+        String url = "https://api.embed.ly/1/oembed?key=48c027a3cc6b4109959ed98ecea1b1cc&url=" + mUrl;
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Log.d("potatopie", response);
+                            JSONObject responseObject = new JSONObject(response);
+                            String content = responseObject.getString("thumbnail_url");
+                            Log.d("potatopie", content);
+                            callback.returnImage(content);
+                        } catch (JSONException e) {
+                            Log.d("potatopie", e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("potatopie", error.getMessage());
                         return;
                     }
                 }
