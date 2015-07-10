@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -69,6 +72,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         SimpleDateFormat df = new SimpleDateFormat("dd MMM");
         viewHolder.tvTime.setText(df.format(date));
         viewHolder.tvSource.setText(getName(article.mSource));
+        RequestQueue queue = Volley.newRequestQueue(context);
         mArticles.get(position).getImage(context, new NewsImageCallback() {
             @Override
             public void returnImage(String in_url) {
@@ -76,10 +80,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                     URL url = new URL(in_url);
                     Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                     viewHolder.ivThumbnail.setImageBitmap(bmp);
-                } catch (MalformedURLException e) {}
-                catch (IOException e) {}
+                } catch (MalformedURLException e) {
+                } catch (IOException e) {
+                }
             }
-        });
+        }, queue);
         //let's leave image alone first
     }
 

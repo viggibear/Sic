@@ -125,9 +125,8 @@ class NewsObject implements Parcelable {
         queue.add(stringRequest);
     }
 
-    public void getImage(Context context, final NewsImageCallback callback) {
+    public void getImage(Context context, final NewsImageCallback callback, final RequestQueue queue) {
         String url = "https://api.embed.ly/1/oembed?key=48c027a3cc6b4109959ed98ecea1b1cc&url=" + mUrl;
-        RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
                 url,
