@@ -5,11 +5,16 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import android.text.method.ScrollingMovementMethod;
+
+import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -19,6 +24,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import java.io.InputStream;
+
 
 public class ArticleActivity extends AppCompatActivity {
     private NewsObject mNewsObject;
@@ -63,6 +71,13 @@ public class ArticleActivity extends AppCompatActivity {
             }
         });
 
+        mNewsObject.getImage(this, new NewsImageCallback() {
+            @Override
+            public void returnImage(String url) {
+                new DownloadImageTask((ImageView) findViewById(R.id.image)).execute(url);
+            }
+        });
+
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         mToolbar.setTitle(NewsSources.getName(mNewsObject.mSource));
         setSupportActionBar(mToolbar);
@@ -100,4 +115,30 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
 }
+
