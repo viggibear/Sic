@@ -28,7 +28,9 @@ public class ArticleListFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(activity, ArticleActivity.class);
-                        intent.putExtra("newsObject", mAdapter.getArticle(position));
+                        NewsObject returnedSource = mAdapter.getArticle(position);
+                        intent.putExtra("newsObject", returnedSource);
+
                         startActivity(intent);
                     }
                 })

@@ -27,6 +27,8 @@ dependencies {
     compile 'com.android.support:cardview-v7:22.2.0'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.github.kanytu:android-parallax-recyclerview:v1.2'
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.afollestad:material-dialogs:0.7.6.0'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
     compile project(':goose-2.1.22')
     compile project(':org.json-20120521')

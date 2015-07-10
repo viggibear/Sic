@@ -32,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/thumbnailImage"
-            android:src="@drawable/belgium_pic"
             android:paddingBottom="6dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />

@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/image"
-        android:layout_below="@+id/toolbar_actionbar"></ImageView>
+        android:layout_below="@+id/toolbar_actionbar">
+    </ImageView>
 
     <TextView
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         android:textColor="#333"
         android:textStyle="bold"
         android:id="@+id/title"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:maxLines = "5"
+        android:scrollbars = "vertical"/>
 
     <TextView
         android:layout_width="match_parent"

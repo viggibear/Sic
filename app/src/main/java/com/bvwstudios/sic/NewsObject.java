@@ -3,6 +3,7 @@ package com.bvwstudios.sic;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Html;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Date;
 
 class NewsObject implements Parcelable {
@@ -95,6 +97,16 @@ class NewsObject implements Parcelable {
                             Log.d("potatopie", response);
                             JSONObject responseObject = new JSONObject(response);
                             String content = responseObject.getString("sm_api_content");
+                            try
+                            {
+                                byte spbyte[] = content.getBytes("UTF-8");
+                                String midText = new String( spbyte,"UTF-8");
+                                content = Html.fromHtml(midText).toString();
+                            }
+                            catch(IOException ioe)
+                            {
+                                ioe.printStackTrace();
+                            }
                             Log.d("potatopie", content);
                             callback.returnSummary(content);
                         } catch (JSONException e) {
@@ -181,4 +193,5 @@ class NewsObject implements Parcelable {
             return new NewsObject[size];
         }
     };
+
 }
