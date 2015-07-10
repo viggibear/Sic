@@ -20,6 +20,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -66,17 +69,19 @@ public class ArticleActivity extends AppCompatActivity {
             public void returnSummary(String summary) {
                 mContent.setText(summary);
                 int lineCount = mContent.getLineCount();
-                mContent.setMaxLines(lineCount+1);
+                mContent.setMaxLines(lineCount + 1);
                 mContent.setMovementMethod(new ScrollingMovementMethod());
             }
         });
+
+        RequestQueue queue = Volley.newRequestQueue(ArticleActivity.this);
 
         mNewsObject.getImage(this, new NewsImageCallback() {
             @Override
             public void returnImage(String url) {
                 new DownloadImageTask((ImageView) findViewById(R.id.image)).execute(url);
             }
-        });
+        }, queue);
 
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         mToolbar.setTitle(NewsSources.getName(mNewsObject.mSource));
