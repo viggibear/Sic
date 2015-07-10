@@ -2,14 +2,21 @@ package com.bvwstudios.sic;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.InputStream;
 
 public class ArticleActivity extends AppCompatActivity {
     private NewsObject mNewsObject;
@@ -29,7 +36,6 @@ public class ArticleActivity extends AppCompatActivity {
 
         mTitle.setText(mNewsObject.mTitle);
 
-
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String preference = sharedPref.getString(SettingsActivity.KEY_ARTICLE_SIZE, "10");
         int sentences = Integer.parseInt(preference);
@@ -38,6 +44,13 @@ public class ArticleActivity extends AppCompatActivity {
             @Override
             public void returnSummary(String summary) {
                 mContent.setText(summary);
+            }
+        });
+
+        mNewsObject.getImage(this, new NewsImageCallback() {
+            @Override
+            public void returnImage(String url) {
+                new DownloadImageTask((ImageView) findViewById(R.id.image)).execute(url);
             }
         });
 
@@ -74,4 +87,31 @@ public class ArticleActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
 }
+

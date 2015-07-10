@@ -105,7 +105,7 @@ class NewsObject implements Parcelable {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("potatopie", error.getMessage());
+                        //Log.d("potatopie", error.getMessage());
                         return;
                     }
                 }
